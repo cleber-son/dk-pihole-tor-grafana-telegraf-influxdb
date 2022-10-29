@@ -1,29 +1,27 @@
 version: "3"
 
-# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
   pihole:
-    container_name: pihole
+    container_name: ${CONTAINER_PIHOLE_NAME}
     image: pihole/pihole:latest
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "80:80/tcp"
+      - "${PIHOLE_HTTP_PORT}:80/tcp"
+      - "8443:443/tcp"
     environment:
       TZ: 'America/Sao_Paulo'
-      WEBPASSWORD: 'cleberson'
+      WEBPASSWORD: '${PIHOLE_WEB_PASSWORD}'
       PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
       REV_SERVER_DOMAIN: 'valhalla'
       REV_SERVER_TARGET: '172.16.99.254'
+      REV_SERVER: '172.16.99.254'
+      DHCP_ACTIVE: 'false'
+      DNSSEC: 'true'
     volumes:
-      - './etc-pihole:/etc/pihole'
-      - './etc-dnsmasq.d:/etc/dnsmasq.d'
-    cap_add:
-      - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
-    restart: unless-stopped
-
-
-
+      - '${PIHOLE_DIR_ETC}:/etc/pihole'
+      - '$(PIHOLE_DIR_DNS):/etc/dnsmasq.d'
+      - '${PIHOLE_DIR_LOG}:/var/log/pihole'
+    restart: always
 
 
