@@ -19,6 +19,7 @@ fi
 
 source .env
 
+
 case "$1" in
 	install)
         echo -e "[${GREEN}OK${RESTORE}] Starting instalation..."
@@ -29,7 +30,7 @@ case "$1" in
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
         curl --url ${adListSource} --output ${adListFile}
         if [ -e "${adListFile}" ]; then
-            rowid="$(sqlite3 "${gravityDBfile}" "SELECT MAX(id) FROM ${table};")"
+            rowid=$(docker exec pihole sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
         if [[ -z "$rowid" ]]; then
             rowid=0
         fi
@@ -42,13 +43,14 @@ case "$1" in
             rowid=$((rowid+1))
             fi
         done
-        output=$( { printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "${tmpFile}" "${table}" | sqlite3 "${gravityDBfile}"; } 2>&1 )
+        output=$( { printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "${tmpFile}" "${table}" | docker exec -it ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db; } 2>&1 )
+
         status="$?"
 
         rm ${tmpFile}
 
         if [[ "${status}" -ne 0 ]]; then
-            echo "Warning: Some warnings in table ${table} in database ${gravityDBfile}:"
+            echo "Warning: Some warnings in table ${table} in database /etc/pihole/gravity.db:"
             echo "${output}"
         else
             echo "Info: Successfull inserted the adlists list"

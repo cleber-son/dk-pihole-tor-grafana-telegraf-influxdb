@@ -5,13 +5,16 @@ PIHOLE_DIR_ETC=./etc-pihole
 PIHOLE_DIR_DNS=./etc-dnsmasq
 PIHOLE_DIR_LOG=./etc-log
 
-adListSource="https://github.com/cleber-son/docker-pihole-speed-tor-raspberry/blob/main/adListFile"
+adListSource="https://raw.githubusercontent.com/cleber-son/docker-pihole-speed-tor-raspberry/main/adListFile"
 gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
 
 
 adListFile="adlist.uploaded"
 tmpFile="adlist.temp"
 table="adlist"
+
+
+
 
 
 
