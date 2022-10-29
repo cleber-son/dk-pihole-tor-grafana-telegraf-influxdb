@@ -57,8 +57,8 @@ case "$1" in
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
 
     ;;
-	stop)
-		echo -e "[${GREEN}-${RESTORE}] Pihole will be ${RED}STOPPED${RESTORE}"
+    stop)
+        echo -e "[${GREEN}-${RESTORE}] Pihole will be ${RED}STOPPED${RESTORE}"
         read -r -p "Are you sure? [Y/N] " response
         case ${response:0:1} in
             y|Y )
@@ -69,14 +69,16 @@ case "$1" in
                 echo -e "[${GREEN}-${RESTORE}] canceled!"
                 exit 0
             ;;
-
-	*)
+        esac
+    ;;
+    *)
+        echo
         echo "Manager docker tool"
-		echo "$0 usage:"
-		echo
-		echo "$0 { install | adlist | stop }"
-		echo
+        echo "$0 usage:"
+        echo
+        echo "$0 { install | adlist | stop }"
+        echo
         echo "More information please read README file of the project"
-		exit 1
-	;;
+        exit 1
+    ;;
 esac

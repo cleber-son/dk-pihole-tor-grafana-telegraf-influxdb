@@ -20,7 +20,7 @@ services:
       DNSSEC: 'true'
     volumes:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
-      - '$(PIHOLE_DIR_DNS):/etc/dnsmasq.d'
+      - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
     restart: always
 

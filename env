@@ -9,8 +9,8 @@ adListSource="https://github.com/cleber-son/docker-pihole-speed-tor-raspberry/bl
 gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
 
 
-adListFile="$HOME/adlist.uploaded"
-tmpFile="$HOME/adlist.temp"
+adListFile="adlist.uploaded"
+tmpFile="adlist.temp"
 table="adlist"
 
 
