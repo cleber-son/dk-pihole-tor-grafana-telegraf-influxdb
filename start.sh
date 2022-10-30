@@ -28,6 +28,7 @@ case "$1" in
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] $PROJ_NAME Updating adList..."
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
+        mkdir /etc/pihole
         curl --url ${adListSource} --output ${adListFile}
         if [ -e "${adListFile}" ]; then
             rowid=$(docker exec pihole sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
@@ -43,11 +44,13 @@ case "$1" in
             rowid=$((rowid+1))
             fi
         done
+        
+        cp /etc/pihole/adlists.tmp ${PIHOLE_DIR_ETC}/adlists.tmp
         output=$( { printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "/etc/pihole/adlists.tmp" "${table}" | docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db; } 2>&1 )
 
         status="$?"
 
-        rm ${tmpFile}
+        
 
         if [[ "${status}" -ne 0 ]]; then
             echo "[${RED}ERROR${RESTORE}] Some warnings in table ${table} in database /etc/pihole/gravity.db:"
@@ -56,6 +59,8 @@ case "$1" in
             echo "[${GREEN}OK${RESTORE}] Successfull inserted the Pihole adlists list"
         fi
         fi
+        rm ${tmpFile}
+        rm ${PIHOLE_DIR_ETC}/adlists.tmp
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
 
     ;;
