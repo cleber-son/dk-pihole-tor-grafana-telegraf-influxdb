@@ -8,12 +8,11 @@ PIHOLE_DIR_DNS=./etc-dnsmasq
 PIHOLE_DIR_LOG=./etc-log
 
 adListSource="https://raw.githubusercontent.com/cleber-son/docker-pihole-speed-tor-raspberry/main/adListFile"
-tmpFile="/etc/pihole/adlists.tmp"
+tmpFile="${PIHOLE_DIR_ETC}/adlists.tmp"
 gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
 adListFile="adlist.uploaded"
 table="adlist"
 timestamp="$(date --utc +'%s')"
-
 
 
 
