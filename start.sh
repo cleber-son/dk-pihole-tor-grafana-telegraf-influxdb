@@ -28,6 +28,7 @@ case "$1" in
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] $PROJ_NAME Updating adList..."
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
+        mkdir /etc/pihole
         curl --url ${adListSource} --output ${adListFile}
         if [ -e "${adListFile}" ]; then
             rowid=$(docker exec pihole sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
@@ -39,14 +40,18 @@ case "$1" in
         grep -v '^ *#' < "${adListFile}" | while IFS= read -r domain
         do
             if [[ -n "${domain}" ]]; then
-            echo "${rowid},\"${domain}\",1,${timestamp},${timestamp},\"Added by Updater\",,0,0,0" >> ${tmpFile}
+            echo "${rowid},\"${domain}\",1,${timestamp},${timestamp},\"Added by adListUpdater.sh\",,0,0,0" >> ${tmpFile}
             rowid=$((rowid+1))
             fi
         done
         
         cp adListUpdater.sh ${PIHOLE_DIR_ETC}/.
-        docker exec -it ${CONTAINER_PIHOLE_NAME} bash /etc/pihole/adListUpdate.sh
+        docker exec -it ${CONTAINER_PIHOLE_NAME} bash /etc/pihole/adListUpdater.sh
         rm ${PIHOLE_DIR_ETC}/adlists.tmp
+        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity    
+        fi
+        
+        rm ${tmpFile}
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
 
     ;;
