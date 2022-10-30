@@ -39,21 +39,21 @@ case "$1" in
         grep -v '^ *#' < "${adListFile}" | while IFS= read -r domain
         do
             if [[ -n "${domain}" ]]; then
-            echo "${rowid},\"${domain}\",1,${timestamp},${timestamp},\"Added by Updater\",,0,0,0" >> "${tmpFile}"
+            echo "${rowid},\"${domain}\",1,${timestamp},${timestamp},\"Added by Updater\",,0,0,0" >> ${tmpFile}
             rowid=$((rowid+1))
             fi
         done
-        output=$( { printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "${tmpFile}" "${table}" | docker exec -it ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db; } 2>&1 )
+        output=$( { printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "/etc/pihole/adlists.tmp" "${table}" | docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db; } 2>&1 )
 
         status="$?"
 
         rm ${tmpFile}
 
         if [[ "${status}" -ne 0 ]]; then
-            echo "Warning: Some warnings in table ${table} in database /etc/pihole/gravity.db:"
+            echo "[${RED}ERROR${RESTORE}] Some warnings in table ${table} in database /etc/pihole/gravity.db:"
             echo "${output}"
         else
-            echo "Info: Successfull inserted the adlists list"
+            echo "[${GREEN}OK${RESTORE}] Successfull inserted the Pihole adlists list"
         fi
         fi
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity

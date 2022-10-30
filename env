@@ -1,3 +1,5 @@
+
+
 CONTAINER_PIHOLE_NAME=pihole
 PIHOLE_HTTP_PORT=8080
 PIHOLE_WEB_PASSWORD=cleberson
@@ -6,13 +8,12 @@ PIHOLE_DIR_DNS=./etc-dnsmasq
 PIHOLE_DIR_LOG=./etc-log
 
 adListSource="https://raw.githubusercontent.com/cleber-son/docker-pihole-speed-tor-raspberry/main/adListFile"
+tmpFile="${PIHOLE_DIR_ETC}/adlists.tmp"
 gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
-
-
 adListFile="adlist.uploaded"
 tmpFile="adlist.temp"
 table="adlist"
-
+timestamp="$(date --utc +'%s')"
 
 
 
