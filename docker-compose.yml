@@ -10,7 +10,7 @@ services:
       - "${PIHOLE_HTTP_PORT}:80/tcp"
       - "8443:443/tcp"
     environment:
-      TZ: 'America/Sao_Paulo'
+      TZ: ${TIME_ZONE}
       WEBPASSWORD: '${PIHOLE_WEB_PASSWORD}'
       PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
       REV_SERVER_DOMAIN: 'valhalla'

@@ -10,6 +10,10 @@
 printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "/etc/pihole/adlists.tmp" "adlist" | sqlite3 "/etc/pihole/gravity.db";
 
 
+crontab -l > adListUpdate
+echo "1 * * * * echo hello" >> adListUpdate
+crontab adListUpdate
+rm adListUpdate
 
 
 

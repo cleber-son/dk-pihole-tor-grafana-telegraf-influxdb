@@ -47,7 +47,7 @@ case "$1" in
         
         cp adListUpdater.sh ${PIHOLE_DIR_ETC}/.
         docker exec -it ${CONTAINER_PIHOLE_NAME} bash /etc/pihole/adListUpdater.sh
-        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity    
+        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
         rm ${tmpFile}
         fi
         
@@ -68,12 +68,13 @@ case "$1" in
     ;;
     *)
         echo
-        echo "Manager docker tool"
-        echo "$0 usage:"
+        echo "docker-pihole-speed-tor-raspberry tools"
+        echo "$0 How to use:"
         echo
         echo "$0 { install | adlist | stop }"
         echo
         echo "More information please read README file of the project"
+        echo "https://github.com/cleber-son/docker-pihole-speed-tor-raspberry"
         exit 1
     ;;
 esac
