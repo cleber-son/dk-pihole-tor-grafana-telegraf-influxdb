@@ -47,13 +47,10 @@ case "$1" in
         
         cp adListUpdater.sh ${PIHOLE_DIR_ETC}/.
         docker exec -it ${CONTAINER_PIHOLE_NAME} bash /etc/pihole/adListUpdater.sh
-        rm ${PIHOLE_DIR_ETC}/adlists.tmp
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity    
+        rm ${tmpFile}
         fi
         
-        rm ${tmpFile}
-        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
-
     ;;
     stop)
         echo -e "[${GREEN}-${RESTORE}] Pihole will be ${RED}STOPPED${RESTORE}"

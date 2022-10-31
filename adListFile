@@ -1,6 +1,33 @@
-https://v.firebog.net/hosts/AdguardDNS.txt
+######################################################################
+# Add here youy blocklist
+# I usualy get my blocklist from https://firebog.net/
+######################################################################
+
+
+# Suspicious Lists
+https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
+https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
+https://v.firebog.net/hosts/static/w3kbl.txt
+
+
+# Advertising Lists
 https://adaway.org/hosts.txt
+https://v.firebog.net/hosts/AdguardDNS.txt
+https://v.firebog.net/hosts/Admiral.txt
+
+
+# Tracking & Telemetry Lists
 https://v.firebog.net/hosts/Easyprivacy.txt
-https://v.firebog.net/hosts/Prigent-Ads.txt
+
+
+
+# Malicious Lists
 https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
+https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt
+
+
+
+
+
+
 

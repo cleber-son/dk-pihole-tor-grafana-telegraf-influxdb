@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 ######################################################################
 # name: adListUpdater
 # description: Pihole Adlists updater
