@@ -81,7 +81,7 @@ case "$1" in
         echo "docker-pihole-speed-tor-raspberry tools"
         echo "How to use:"
         echo
-        echo "$0 { install | adlist | stop }"
+        echo "$0 { install | speed | adlist | stop }"
         echo
         echo "More information please read README file of the project"
         echo "https://github.com/cleber-son/docker-pihole-speed-tor-raspberry"

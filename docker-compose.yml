@@ -4,6 +4,7 @@ services:
   pihole:
     container_name: ${CONTAINER_PIHOLE_NAME}
     image: pihole/pihole:latest
+    restart: always
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -22,12 +23,45 @@ services:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
+  
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
     restart: always
-
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+      - "2003:2003"
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=cleberson
+      - INFLUXDB_ADMIN_PASSWORD=password
+  
   grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana-provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=cleberson
+      - GF_SECURITY_ADMIN_PASSWORD=password
+
+  dk-speed:
     image: dk-speed
     container_name: dk-speed
-    ports:
-      - "3000:3000"
+    restart: always
+    volumes:
+      - ./speedtest:/speedtest
 
-
+volumes:
+  influxdb-storage:
+  grafana-storage:
