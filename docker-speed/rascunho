@@ -1,0 +1,35 @@
+
+ENV MYSQL_ENV_MYSQL_HOST mariadb
+ENV BACKUP_TIME 0 3 * * *
+
+COPY docker-entrypoint.sh /entrypoint.sh
+COPY backup restore /bin/
+
+VOLUME /backups
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["cron", "-f"]
+
+
+
+
+
+
+APAGAR 
+
+sudo apt install apt-transport-https gnupg1 dirmngr lsb-release
+curl -L https://packagecloud.io/ookla/speedtest-cli/gpgkey | gpg --dearmor | sudo tee /usr/share/keyrings/speedtestcli-archive-keyring.gpg >/dev/null
+
+
+
+
+    env_file:
+      - 'env.grafana'
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
+      - /srv/docker/grafana/data:/var/lib/grafana

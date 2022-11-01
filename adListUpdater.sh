@@ -11,7 +11,7 @@ printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "/etc/pihole/adlists.
 
 
 crontab -l > adListUpdate
-echo "1 * * * * echo hello" >> adListUpdate
+echo "0 2 * * * pihole updateGravity" >> adListUpdate
 crontab adListUpdate
 rm adListUpdate
 

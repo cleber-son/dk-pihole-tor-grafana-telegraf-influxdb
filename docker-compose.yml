@@ -24,4 +24,10 @@ services:
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
     restart: always
 
+  grafana:
+    image: dk-speed
+    container_name: dk-speed
+    ports:
+      - "3000:3000"
+
 

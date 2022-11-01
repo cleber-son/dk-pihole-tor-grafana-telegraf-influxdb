@@ -19,11 +19,20 @@ fi
 
 source .env
 
-
 case "$1" in
 	install)
         echo -e "[${GREEN}OK${RESTORE}] Starting instalation..."
         docker-compose up -d
+
+    ;; 
+    speed)
+    echo 
+    cd docker-speed
+    docker build -t dk-speed .
+    exitcode=$?
+    cd ..
+    return $exitcode
+
     ;; 
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] $PROJ_NAME Updating adList..."
@@ -36,7 +45,6 @@ case "$1" in
             rowid=0
         fi
             rowid=$((rowid+1))
-
         grep -v '^ *#' < "${adListFile}" | while IFS= read -r domain
         do
             if [[ -n "${domain}" ]]; then
@@ -46,11 +54,12 @@ case "$1" in
         done
         
         cp adListUpdater.sh ${PIHOLE_DIR_ETC}/.
-        docker exec -it ${CONTAINER_PIHOLE_NAME} bash /etc/pihole/adListUpdater.sh
+        docker exec -it ${CONTAINER_PIHOLE_NAME} sudo bash /etc/pihole/adListUpdater.sh
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
+        rm ${adListFile}
         rm ${tmpFile}
-        fi
-        
+        fi        
+
     ;;
     stop)
         echo -e "[${GREEN}-${RESTORE}] Pihole will be ${RED}STOPPED${RESTORE}"
@@ -65,11 +74,12 @@ case "$1" in
                 exit 0
             ;;
         esac
+
     ;;
     *)
         echo
         echo "docker-pihole-speed-tor-raspberry tools"
-        echo "$0 How to use:"
+        echo "How to use:"
         echo
         echo "$0 { install | adlist | stop }"
         echo
