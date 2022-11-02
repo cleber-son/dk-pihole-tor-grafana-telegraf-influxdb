@@ -23,45 +23,17 @@ services:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
-  
-  influxdb:
-    image: influxdb:latest
-    container_name: influxdb
-    restart: always
-    ports:
-      - "8083:8083"
-      - "8086:8086"
-      - "8090:8090"
-      - "2003:2003"
-    volumes:
-      - influxdb-storage:/var/lib/influxdb
-    environment:
-      - INFLUXDB_DB=db0
-      - INFLUXDB_ADMIN_USER=cleberson
-      - INFLUXDB_ADMIN_PASSWORD=password
-  
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    restart: always
-    ports:
-      - '3000:3000'
-    volumes:
-      - grafana-storage:/var/lib/grafana
-      - ./grafana-provisioning/:/etc/grafana/provisioning
-    depends_on:
-      - influxdb
-    environment:
-      - GF_SECURITY_ADMIN_USER=cleberson
-      - GF_SECURITY_ADMIN_PASSWORD=password
 
-  dk-speed:
-    image: dk-speed
-    container_name: dk-speed
+  tor-socks-proxy:
+    container_name: dk-tor
+    image: dk-tor
+    ports:
+      - "127.0.0.1:9150:9150/tcp"
     restart: always
-    volumes:
-      - ./speedtest:/speedtest
 
-volumes:
-  influxdb-storage:
-  grafana-storage:
+
+
+
+
+
+

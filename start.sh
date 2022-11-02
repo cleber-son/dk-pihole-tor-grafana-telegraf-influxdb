@@ -25,10 +25,10 @@ case "$1" in
         docker-compose up -d
 
     ;; 
-    speed)
+    tor)
     echo 
-    cd docker-speed
-    docker build -t dk-speed .
+    cd dk-tor
+    docker build -t dk-tor .
     exitcode=$?
     cd ..
     return $exitcode
@@ -81,7 +81,7 @@ case "$1" in
         echo "docker-pihole-speed-tor-raspberry tools"
         echo "How to use:"
         echo
-        echo "$0 { install | speed | adlist | stop }"
+        echo "$0 { install | tor | adlist | stop }"
         echo
         echo "More information please read README file of the project"
         echo "https://github.com/cleber-son/docker-pihole-speed-tor-raspberry"
