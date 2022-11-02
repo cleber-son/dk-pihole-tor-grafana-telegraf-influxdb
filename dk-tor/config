@@ -1,9 +1,0 @@
-logSyslog = true
-logFile = /var/log/polipo/polipo.log
-allowedClients = 127.0.0.1, 172.16.99.0/24 # Expose your network
-socksParentProxy = "localhost:9050"
-socksProxyType = socks5
-proxyAddress = "0.0.0.0"    # IPv4 only
-diskCacheRoot = ""
-
-

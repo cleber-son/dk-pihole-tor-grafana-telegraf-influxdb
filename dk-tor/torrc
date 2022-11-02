@@ -1,1 +1,4 @@
-SocksPort 0.0.0.0:9150
+SocksPort 9150
+Log notice syslog
+Log notice file /log/tor/notices.log
+

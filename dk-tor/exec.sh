@@ -11,7 +11,7 @@ if [ $status -ne 0 ]; then
   exit $status
 fi
 
-while sleep 60; do
+while sleep 600; do
   ps aux |grep tor |grep -q -v grep
   PROCESS_1_STATUS=$?
   if [ $PROCESS_1_STATUS -ne 0 ]; then

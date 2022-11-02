@@ -28,7 +28,7 @@ services:
     container_name: dk-tor
     image: dk-tor
     ports:
-      - "127.0.0.1:9150:9150/tcp"
+      - "0.0.0.0:${TOR_PORT}:9150/tcp"
     restart: always
 
 

@@ -13,7 +13,7 @@ adListFile="adlist.uploaded"
 table="adlist"
 timestamp="$(date --utc +'%s')"
 
-
+TOR_PORT=8888
 
 
 
