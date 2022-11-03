@@ -24,16 +24,10 @@ services:
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
 
-  tor-socks-proxy:
+  dk-tor:
     container_name: dk-tor
-    image: dk-tor
+    image: dk-tor:latest
     ports:
-      - "0.0.0.0:${TOR_PORT}:9150/tcp"
-    restart: always
-
-
-
-
-
-
+      - "${TOR_PORT}:9150"
+    restart: unless-stopped
 

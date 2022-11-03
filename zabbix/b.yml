@@ -1,0 +1,106 @@
+version: "3"
+
+networks:
+  network-zabbix:
+    driver: bridge
+
+services:
+  zabbix-mysql:
+    image: mysql:8.0-oracle
+    command:
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_bin
+      - --default-authentication-plugin=mysql_native_password
+    container_name: zabbix-mysql
+    restart: always
+    volumes:
+      - './zabbix/mysql:/var/lib/mysql:rw'
+    environment:
+      - MYSQL_USER=clebersondb
+      - MYSQL_PASSWORD=clebersonpass
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_ROOT_PASSWORD=zabbix
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_INITDB_SKIP_TZINFO=1
+    ports:
+      - '3306:3306'
+    networks:
+      - network-zabbix
+
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:ol-6.2-latest
+    container_name: zabbix-server
+    depends_on:
+      - zabbix-mysql
+    ports:
+      - '10051:10051'
+      - '10050:10050'
+    volumes:
+      - './zabbix/alertscripts:/usr/lib/zabbix/alertscripts'
+      - './zabbix/externalscripts:/usr/lib/zabbix/externalscripts'
+      - './zabbix/:/etc/zabbix/'
+    environment:
+      - DB_SERVER_HOST=zabbix-mysql
+      - DB_SERVER_PORT=3306
+      - MYSQL_USER=clebersondb
+      - MYSQL_PASSWORD=clebersonpass
+      - MYSQL_ROOT_PASSWORD=zabbix
+      - PHP_TZ=America/Sao_Paulo
+    networks:
+      - network-zabbix
+    links:
+      - zabbix-mysql
+    restart: always
+
+  zabbix-web:
+    image: zabbix/zabbix-web-apache-mysql:ol-6.2-latest
+    container_name: zabbix-web
+    depends_on:
+     - zabbix-mysql
+     - zabbix-server
+    ports:
+      - '80:8080'
+      - '443:8443'
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_PORT=10051
+      - DB_SERVER_HOST=zabbix-mysql
+      - DB_SERVER_PORT=3306
+      - MYSQL_USER=clebersondb
+      - MYSQL_PASSWORD=clebersonpass
+      - MYSQL_ROOT_PASSWORD=zabbix
+      - PHP_TZ=America/Sao_Paulo
+    networks:
+      - network-zabbix
+    links:
+      - zabbix-mysql
+    restart: always
+
+
+  
+
+
+
+docker run --name some-zabbix-web-nginx-mysql --link some-zabbix-server:zabbix-server -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER="some-user" -e MYSQL_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-nginx-mysql:tag
+
+
+ZBX_SERVER_HOST
+This variable is IP or DNS name of Zabbix server. By default, value is zabbix-server.
+
+ZBX_SERVER_PORT
+This variable is port Zabbix server listening on. By default, value is 10051.
+
+DB_SERVER_HOST
+This variable is IP or DNS name of MySQL server. By default, value is 'mysql-server'
+
+DB_SERVER_PORT
+This variable is port of MySQL server. By default, value is '3306'.
+
+MYSQL_USER, MYSQL_PASSWORD, MYSQL_USER_FILE, MYSQL_PASSWORD_FILE
+These variables are used by Zabbix web-interface to connect to Zabbix database. With the _FILE variables you can instead provide the path to a file which contains the user / the password instead. Without Docker Swarm or Kubernetes you also have to map the files. Those are exclusive so you can just provide one type - either MYSQL_USER or MYSQL_USER_FILE!
+
+
+
+zabbix/zabbix-web-nginx-mysql:6.0-ubuntu-latest
+
