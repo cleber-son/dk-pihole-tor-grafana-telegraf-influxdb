@@ -38,8 +38,6 @@ services:
       INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
     depends_on:
       - influxdb
-    env_file:
-      - ../.env
     volumes:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     networks:
@@ -60,6 +58,7 @@ services:
       GF_DATABASE_PASSWORD: 'grafana'
     depends_on:
       - influxdb
+      - telegraf
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/dashboards
