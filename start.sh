@@ -28,6 +28,12 @@ case "$1" in
         echo -e "[${GREEN}OK${RESTORE}] Starting instalation..."
         docker-compose up -d
     ;; 
+    grafana)
+        echo 
+        cd dk-grafana
+        echo -e "[${GREEN}OK${RESTORE}] Grafana starting instalation..."
+        docker-compose up -d
+    ;; 
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] ${CONTAINER_PIHOLE_NAME} Updating adList..."
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity

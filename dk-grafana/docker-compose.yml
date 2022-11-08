@@ -9,14 +9,8 @@ services:
     ports:
       - "8086:8086"
       - "8125:8125"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8086/ping"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 40s
     env_file:
-      - .env
+      - ../.env
     volumes:
       - influxdb_data:/var/lib/influxdb2
       - ./influxdb/config.yml:/etc/influxdb2/config.yml
@@ -28,18 +22,12 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 40s
     environment:
       TZ: ${TIME_ZONE}
     depends_on:
-      influxdb
+      - influxdb
     env_file:
-      - .env
+      - ../.env
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
