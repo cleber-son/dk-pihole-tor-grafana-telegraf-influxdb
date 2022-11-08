@@ -1,5 +1,8 @@
 version: "3"
 
+networks:
+  influx:
+    name: influx-frontend
 
 services:
   influxdb:
@@ -8,7 +11,10 @@ services:
     restart: always
     ports:
       - "8086:8086"
+      - "8125:8125"      
       - "8125:8125"
+      - "8092:8092"
+      - "8094:8094"      
     environment:
       TZ: ${TIME_ZONE}
     env_file:
@@ -17,6 +23,8 @@ services:
       - ./influxdb_data:/var/lib/influxdb2
       - ./influxdb/config.yml:/etc/influxdb2/config.yml
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - influx
 
   dk-grafana:
     container_name: dk-grafana
@@ -31,9 +39,9 @@ services:
     env_file:
       - ../.env
     volumes:
-      - ./grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/dashboards
-
+    networks:
+      - influx
 
 
