@@ -19,14 +19,11 @@ services:
       REV_SERVER: ${YOUR_ROUTER_IP}
       DHCP_ACTIVE: 'false'
       DNSSEC: 'true'
-      REV_SERVER_CIDR: ${YOUR_LOCAL_NETWORK}
-      DHCP_ROUTER: ${YOUR_ROUTER_IP}
-      PIHOLE_DOMAIN: ${YOUR_LOCAL_DOMAIN}
     volumes:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
-
+      
   dk-tor:
     container_name: dk-tor
     image: dk-tor:latest

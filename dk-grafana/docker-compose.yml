@@ -2,26 +2,45 @@ version: "3"
 
 networks:
   influx:
-    name: influx-frontend
+    driver: bridge
 
 services:
   influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    networks:
+      - influx
+    ports:
+      - "8086:8086"
+    restart: always
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: 'setup'
+      DOCKER_INFLUXDB_INIT_USERNAME: 'admin'
+      DOCKER_INFLUXDB_INIT_PASSWORD: 'admin123456'
+      DOCKER_INFLUXDB_INIT_ORG: 'organization'
+      DOCKER_INFLUXDB_INIT_BUCKET: 'bucket'
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
+    volumes:
+      - ./influxdb_data:/var/lib/influxdb2
+      - ./influxdb/config.yml:/etc/influxdb2/config.yml
+
+  telegraf:
     container_name: dk-telegraf
     image: telegraf:latest
     restart: always
     ports:
-      - "8086:8086"
       - "8125:8125"      
-      - "8125:8125"
       - "8092:8092"
       - "8094:8094"      
     environment:
-      TZ: ${TIME_ZONE}
+      INFLUXDB_INIT_ORG: 'organization'
+      INFLUXDB_INIT_BUCKET: 'bucket'
+      INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
+    depends_on:
+      - influxdb
     env_file:
       - ../.env
     volumes:
-      - ./influxdb_data:/var/lib/influxdb2
-      - ./influxdb/config.yml:/etc/influxdb2/config.yml
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     networks:
       - influx
@@ -33,14 +52,18 @@ services:
     ports:
       - "3000:3000"
     environment:
-      TZ: ${TIME_ZONE}
+      GF_DEFAULT_INSTANCE_NAME: 'setup'
+      GF_SECURITY_ADMIN_USER: 'admin'
+      GF_SECURITY_ADMIN_PASSWORD: 'admin'
+      GF_DATABASE_NAME: 'grafana'
+      GF_DATABASE_USER: 'grafana'
+      GF_DATABASE_PASSWORD: 'grafana'
     depends_on:
       - influxdb
-    env_file:
-      - ../.env
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/dashboards
+      - ./grafana_data:/var/lib/grafana
     networks:
       - influx
 
