@@ -21,26 +21,20 @@ source .env
 
 case "$1" in
 	install)
+        echo 
+        cd dk-tor
+        docker build -t dk-tor .
+        cd ..
         echo -e "[${GREEN}OK${RESTORE}] Starting instalation..."
         docker-compose up -d
-
-    ;; 
-    tor)
-    echo 
-    cd dk-tor
-    docker build -t dk-tor .
-    exitcode=$?
-    cd ..
-    return $exitcode
-
     ;; 
     adlist)
-        echo -e "[${GREEN}OK${RESTORE}] $PROJ_NAME Updating adList..."
+        echo -e "[${GREEN}OK${RESTORE}] ${CONTAINER_PIHOLE_NAME} Updating adList..."
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
         mkdir /etc/pihole
         curl --url ${adListSource} --output ${adListFile}
         if [ -e "${adListFile}" ]; then
-            rowid=$(docker exec pihole sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
+            rowid=$(docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
         if [[ -z "$rowid" ]]; then
             rowid=0
         fi
@@ -53,7 +47,7 @@ case "$1" in
             fi
         done
         
-        cp adListUpdater.sh ${PIHOLE_DIR_ETC}/.
+        cp dk-pihole/adListUpdater.sh ${PIHOLE_DIR_ETC}/.
         docker exec -it ${CONTAINER_PIHOLE_NAME} sudo bash /etc/pihole/adListUpdater.sh
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
         rm ${adListFile}
@@ -62,7 +56,7 @@ case "$1" in
 
     ;;
     stop)
-        echo -e "[${GREEN}-${RESTORE}] Pihole will be ${RED}STOPPED${RESTORE}"
+        echo -e "[${GREEN}-${RESTORE}] All docker will be ${RED}STOPPED${RESTORE}"
         read -r -p "Are you sure? [Y/N] " response
         case ${response:0:1} in
             y|Y )
@@ -78,10 +72,10 @@ case "$1" in
     ;;
     *)
         echo
-        echo "docker-pihole-speed-tor-raspberry tools"
+        echo "docker-pihole-tor-grafana tools"
         echo "How to use:"
         echo
-        echo "$0 { install | tor | adlist | stop }"
+        echo "$0 { install | adlist | grafana | stop }"
         echo
         echo "More information please read README file of the project"
         echo "https://github.com/cleber-son/docker-pihole-speed-tor-raspberry"

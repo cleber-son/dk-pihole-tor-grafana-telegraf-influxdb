@@ -13,12 +13,15 @@ services:
     environment:
       TZ: ${TIME_ZONE}
       WEBPASSWORD: '${PIHOLE_WEB_PASSWORD}'
-      PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
-      REV_SERVER_DOMAIN: 'valhalla'
-      REV_SERVER_TARGET: '172.16.99.254'
-      REV_SERVER: '172.16.99.254'
+      PIHOLE_DNS_: ${PIHOLE_DEFAULT_DNS}
+      REV_SERVER_DOMAIN: ${YOUR_LOCAL_DOMAIN}
+      REV_SERVER_TARGET: ${YOUR_ROUTER_IP}
+      REV_SERVER: ${YOUR_ROUTER_IP}
       DHCP_ACTIVE: 'false'
       DNSSEC: 'true'
+      REV_SERVER_CIDR: ${YOUR_LOCAL_NETWORK}
+      DHCP_ROUTER: ${YOUR_ROUTER_IP}
+      PIHOLE_DOMAIN: ${YOUR_LOCAL_DOMAIN}
     volumes:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
