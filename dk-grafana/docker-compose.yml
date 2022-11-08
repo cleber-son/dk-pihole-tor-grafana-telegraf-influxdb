@@ -63,7 +63,6 @@ services:
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/dashboards
-      - ./grafana_data:/var/lib/grafana
     networks:
       - influx
 
