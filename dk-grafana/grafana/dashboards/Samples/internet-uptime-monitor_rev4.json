@@ -55,7 +55,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "fill": 1,
           "id": 2,
           "legend": {
@@ -185,7 +185,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "fill": 1,
           "id": 3,
           "legend": {
@@ -321,7 +321,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "decimals": 4,
           "format": "percent",
           "gauge": {
@@ -457,7 +457,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "format": "ms",
           "gauge": {
             "maxValue": 100,
@@ -581,7 +581,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "fill": 1,
           "height": "267px",
           "id": 37,
@@ -749,7 +749,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "decimals": null,
           "format": "mbytes",
           "gauge": {
@@ -881,7 +881,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "decimals": null,
           "format": "mbytes",
           "gauge": {
@@ -1021,7 +1021,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": "InfluxDB",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -1041,7 +1041,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": "InfluxDB",
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -1061,7 +1061,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": "InfluxDB",
         "hide": 0,
         "includeAll": true,
         "label": null,

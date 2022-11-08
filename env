@@ -21,4 +21,3 @@ gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
 adListFile="adlist.uploaded"
 table="adlist"
 timestamp="$(date --utc +'%s')"
-
