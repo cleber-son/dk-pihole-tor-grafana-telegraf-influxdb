@@ -4,15 +4,17 @@ version: "3"
 services:
   influxdb:
     container_name: dk-telegraf
-    image: telegraf:alpine
+    image: telegraf:latest
     restart: always
     ports:
       - "8086:8086"
       - "8125:8125"
+    environment:
+      TZ: ${TIME_ZONE}
     env_file:
       - ../.env
     volumes:
-      - influxdb_data:/var/lib/influxdb2
+      - ./influxdb_data:/var/lib/influxdb2
       - ./influxdb/config.yml:/etc/influxdb2/config.yml
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
@@ -29,7 +31,7 @@ services:
     env_file:
       - ../.env
     volumes:
-      - grafana_data:/var/lib/grafana
+      - ./grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/dashboards
 
