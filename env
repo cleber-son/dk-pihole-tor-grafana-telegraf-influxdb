@@ -20,7 +20,7 @@ influxdb_pass=cleberson
 
 # Grafana http://127.0.0.1:3000
 grafana_user=admin
-grafana_pass=admin
+grafana_pass=cleberson
 
 
 # Not change
