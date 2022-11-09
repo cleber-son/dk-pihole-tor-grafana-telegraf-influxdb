@@ -17,8 +17,8 @@ services:
       DOCKER_INFLUXDB_INIT_MODE: 'setup'
       DOCKER_INFLUXDB_INIT_USERNAME: 'admin'
       DOCKER_INFLUXDB_INIT_PASSWORD: 'admin123456'
-      DOCKER_INFLUXDB_INIT_ORG: 'organization'
-      DOCKER_INFLUXDB_INIT_BUCKET: 'bucket'
+      DOCKER_INFLUXDB_INIT_ORG: 'myorganization'
+      DOCKER_INFLUXDB_INIT_BUCKET: 'mybucket'
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
     volumes:
       - ./influxdb_data:/var/lib/influxdb2
@@ -29,12 +29,12 @@ services:
     image: telegraf:latest
     restart: always
     ports:
-      - "8125:8125"      
+      - "8125:8125/udp"      
       - "8092:8092"
       - "8094:8094"      
     environment:
-      INFLUXDB_INIT_ORG: 'organization'
-      INFLUXDB_INIT_BUCKET: 'bucket'
+      INFLUXDB_INIT_ORG: 'myorganization'
+      INFLUXDB_INIT_BUCKET: 'mybucket'
       INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
     depends_on:
       - influxdb
