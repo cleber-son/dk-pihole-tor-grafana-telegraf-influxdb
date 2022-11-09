@@ -28,9 +28,11 @@ grafana_pass='admin'
 
 
 # Not change
-adListSource="https://raw.githubusercontent.com/cleber-son/docker-pihole-speed-tor-raspberry/main/dk-pihole/adListFile"
+adListSource="https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile"
 tmpFile="${PIHOLE_DIR_ETC}/adlists.tmp"
 gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
 adListFile="adlist.uploaded"
 table="adlist"
 timestamp="$(date --utc +'%s')"
+
+
