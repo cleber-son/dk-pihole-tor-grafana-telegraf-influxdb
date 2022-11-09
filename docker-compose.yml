@@ -1,5 +1,9 @@
 version: "3"
 
+networks:
+  influx:
+    driver: bridge
+
 services:
   pihole:
     container_name: ${CONTAINER_PIHOLE_NAME}
@@ -30,4 +34,65 @@ services:
     ports:
       - "${TOR_PORT}:9150"
     restart: unless-stopped
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    networks:
+      - influx
+    ports:
+      - "8086:8086"
+    restart: always
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: 'setup'
+      DOCKER_INFLUXDB_INIT_USERNAME: ${influxdb_user}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${influxdb_pass}
+      DOCKER_INFLUXDB_INIT_ORG: 'myorganization'
+      DOCKER_INFLUXDB_INIT_BUCKET: 'mybucket'
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
+    volumes:
+      - ./influxdb_data:/var/lib/influxdb2
+      - ./influxdb/config.yml:/etc/influxdb2/config.yml
+
+  telegraf:
+    container_name: dk-telegraf
+    image: telegraf:latest
+    restart: always
+    ports:
+      - "8125:8125/udp"      
+      - "8092:8092"
+      - "8094:8094"      
+    environment:
+      INFLUXDB_INIT_ORG: 'myorganization'
+      INFLUXDB_INIT_BUCKET: 'mybucket'
+      INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
+    depends_on:
+      - influxdb
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - influx
+
+  dk-grafana:
+    container_name: dk-grafana
+    image: grafana/grafana:8.5.15-ubuntu
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      GF_DEFAULT_INSTANCE_NAME: 'setup'
+      GF_SECURITY_ADMIN_USER: ${grafana_user}
+      GF_SECURITY_ADMIN_PASSWORD: ${grafana_pass}
+      GF_DATABASE_NAME: 'grafana'
+      GF_DATABASE_USER: 'grafana'
+      GF_DATABASE_PASSWORD: 'grafana'
+    depends_on:
+      - influxdb
+      - telegraf
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/etc/dashboards
+    networks:
+      - influx
+
 

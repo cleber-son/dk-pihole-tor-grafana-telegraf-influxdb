@@ -28,12 +28,6 @@ case "$1" in
         echo -e "[${GREEN}OK${RESTORE}] Starting instalation..."
         docker-compose up -d
     ;; 
-    grafana)
-        echo 
-        cd dk-grafana
-        echo -e "[${GREEN}OK${RESTORE}] Grafana starting instalation..."
-        docker-compose up -d
-    ;; 
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] ${CONTAINER_PIHOLE_NAME} Updating adList..."
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
@@ -78,13 +72,13 @@ case "$1" in
     ;;
     *)
         echo
-        echo "docker-pihole-tor-grafana tools"
+        echo "dk-pihole-tor-grafana-telegraf-influxdb tools"
         echo "How to use:"
         echo
-        echo "$0 { install | adlist | grafana | stop }"
+        echo "$0 { install | adlist | stop }"
         echo
         echo "More information please read README file of the project"
-        echo "https://github.com/cleber-son/docker-pihole-speed-tor-raspberry"
+        echo "https://github.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb"
         exit 1
     ;;
 esac

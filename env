@@ -13,6 +13,19 @@ TIME_ZONE='America/Sao_Paulo'
 # Tor Port
 TOR_PORT=8888
 
+# InfluxDB http://127.0.0.1:8086
+influxdb_user='admin'
+influxdb_pass='cleberson'
+
+
+# Grafana http://127.0.0.1:3000
+grafana_user='admin'
+grafana_pass='admin'
+
+
+
+
+
 
 # Not change
 adListSource="https://raw.githubusercontent.com/cleber-son/docker-pihole-speed-tor-raspberry/main/dk-pihole/adListFile"
