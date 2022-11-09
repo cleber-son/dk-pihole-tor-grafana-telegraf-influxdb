@@ -8,23 +8,19 @@ PIHOLE_DIR_LOG=./etc-log
 YOUR_ROUTER_IP=172.16.99.254
 YOUR_LOCAL_NETWORK=172.16.99.0/24
 YOUR_LOCAL_DOMAIN=valhalla
-TIME_ZONE='America/Sao_Paulo'
+TIME_ZONE=America/Sao_Paulo
 
 # Tor Port
 TOR_PORT=8888
 
 # InfluxDB http://127.0.0.1:8086
-influxdb_user='admin'
-influxdb_pass='cleberson'
+influxdb_user=admin
+influxdb_pass=cleberson
 
 
 # Grafana http://127.0.0.1:3000
-grafana_user='admin'
-grafana_pass='admin'
-
-
-
-
+grafana_user=admin
+grafana_pass=admin
 
 
 # Not change
