@@ -51,8 +51,8 @@ services:
       DOCKER_INFLUXDB_INIT_BUCKET: 'mybucket'
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 'myadmintoken'
     volumes:
-      - ./influxdb_data:/var/lib/influxdb2
-      - ./influxdb/config.yml:/etc/influxdb2/config.yml
+      - ./dk-grafana/influxdb_data:/var/lib/influxdb2
+      - ./dk-grafana/influxdb/config.yml:/etc/influxdb2/config.yml
 
   telegraf:
     container_name: dk-telegraf
@@ -69,7 +69,7 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - ./dk-grafana/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     networks:
       - influx
 
@@ -90,8 +90,8 @@ services:
       - influxdb
       - telegraf
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/dashboards:/etc/dashboards
+      - ./dk-grafana/grafana/provisioning:/etc/grafana/provisioning
+      - ./dk-grafana/grafana/dashboards:/etc/dashboards
     networks:
       - influx
 
