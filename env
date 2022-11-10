@@ -25,9 +25,12 @@ grafana_pass=cleberson
 
 # Not change
 adListSource="https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile"
-tmpFile="${PIHOLE_DIR_ETC}/adlists.tmp"
-gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
+adListSource2="https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-whitelist"
 adListFile="adlist.uploaded"
+adListFile2="adlist2.uploaded"
+tmpFile="${PIHOLE_DIR_ETC}/adlists.tmp"
+tmpFilew="${PIHOLE_DIR_ETC}/adlistsw.tmp"
+gravityDBfile="${PIHOLE_DIR_ETC}/gravity.db"
 table="adlist"
 timestamp="$(date --utc +'%s')"
 

@@ -8,6 +8,7 @@
 ######################################################################
 
 printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "/etc/pihole/adlists.tmp" "adlist" | sqlite3 "/etc/pihole/gravity.db";
+printf ".timeout 30000\\n.mode csv\\n.import \"%s\" %s\\n" "/etc/pihole/adlistsw.tmp" "vw_regex_whitelist" | sqlite3 "/etc/pihole/gravity.db";
 
 
 crontab -l > adListUpdate
