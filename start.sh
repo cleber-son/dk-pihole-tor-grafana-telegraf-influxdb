@@ -68,12 +68,9 @@ case "$1" in
             fi
         done
 
-
         cp dk-pihole/adListUpdater.sh ${PIHOLE_DIR_ETC}/.
         docker exec -it ${CONTAINER_PIHOLE_NAME} sudo bash /etc/pihole/adListUpdater.sh
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
-        rm ${adListFile} ${adListFile2} ${PIHOLE_DIR_ETC}/adlists.tmp ${PIHOLE_DIR_ETC}/adlistsw.tmp
-      # docker exec dk-pihole sqlite3 /etc/pihole/gravity.db "SELECT * FROM domainlist;"
 
         fi        
         fi
