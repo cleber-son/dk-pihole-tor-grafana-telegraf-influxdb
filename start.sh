@@ -30,24 +30,29 @@ case "$1" in
     ;; 
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] ${CONTAINER_PIHOLE_NAME} Updating adList..."
- #       docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
+        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
         mkdir /etc/pihole
         curl --url ${adListSource} --output ${adListFile}
         curl --url ${adListSource2} --output ${adListFile2}
+        sed -i 's/https\:\/\///g' ${adListFile2}
+        sed -i 's/http\:\/\///g' ${adListFile2}
+        sed -i 's/www\.//g' ${adListFile2}
+        sed -i 's/\./\\\./g' ${adListFile2}
+  
+        if [ -e "${adListFile}" ]; then
+            rowid=$(docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
+        if [[ -z "$rowid" ]]; then
+            rowid=0
+        fi
+            rowid=$((rowid+1))
+        grep -v '^ *#' < "${adListFile}" | while IFS= read -r domain
+        do
+            if [[ -n "${domain}" ]]; then
+            echo "${rowid},\"${domain}\",1,${timestamp},${timestamp},\"Added by adListUpdater.sh\",,0,0,0" >> ${tmpFile}
+            rowid=$((rowid+1))
+            fi
+        done
 
-  #      if [ -e "${adListFile}" ]; then
-  #          rowid=$(docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
-  #      if [[ -z "$rowid" ]]; then
-  #          rowid=0
-  #      fi
-  #          rowid=$((rowid+1))
-  #      grep -v '^ *#' < "${adListFile}" | while IFS= read -r domain
-  #      do
-  #          if [[ -n "${domain}" ]]; then
-  #          echo "${rowid},\"${domain}\",1,${timestamp},${timestamp},\"Added by adListUpdater.sh\",,0,0,0" >> ${tmpFile}
-  #          rowid=$((rowid+1))
-  #          fi
-  #      done
 
         if [ -e "${adListFile2}" ]; then
             rowidw=$(docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM domainlist;")
@@ -63,24 +68,15 @@ case "$1" in
             fi
         done
 
-        cat ${tmpFilew}
-        sed -i 's/https\:\/\///g' ${tmpFilew}
-        sed -i 's/http\:\/\///g' ${tmpFilew}
-        sed -i 's/www\.//g' ${tmpFilew}
-        sed -i 's/\./\\\./g' ${tmpFilew}
-        echo
-        echo DEPOIS
-        echo
-        cat ${tmpFilew}
-        
+
         cp dk-pihole/adListUpdater.sh ${PIHOLE_DIR_ETC}/.
         docker exec -it ${CONTAINER_PIHOLE_NAME} sudo bash /etc/pihole/adListUpdater.sh
-    #    docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
-    #    rm ${adListFile} ${adListFile2} ${tmpFile} ${tmpFilew}
-    # docker exec dk-pihole sqlite3 /etc/pihole/gravity.db "SELECT * FROM domainlist;"
+        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
+        rm ${adListFile} ${adListFile2} ${PIHOLE_DIR_ETC}/adlists.tmp ${PIHOLE_DIR_ETC}/adlistsw.tmp
+      # docker exec dk-pihole sqlite3 /etc/pihole/gravity.db "SELECT * FROM domainlist;"
 
         fi        
-    #    fi
+        fi
     ;;
     stop)
         echo -e "[${GREEN}-${RESTORE}] All docker will be ${RED}STOPPED${RESTORE}"
