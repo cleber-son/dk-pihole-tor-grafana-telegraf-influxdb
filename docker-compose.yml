@@ -22,7 +22,7 @@ services:
       REV_SERVER_TARGET: ${YOUR_ROUTER_IP}
       REV_SERVER: ${YOUR_ROUTER_IP}
       DHCP_ACTIVE: 'false'
-      DNSSEC: 'true'
+      DNSSEC: ${PIHOLE_DNSSEC}
     volumes:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'

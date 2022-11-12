@@ -29,6 +29,8 @@ https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt
 https://v.firebog.net/hosts/Prigent-Crypto.txt
 https://v.firebog.net/hosts/RPiList-Phishing.txt
 
+#Custom blacklist, file adListFile-custom-blacklist
+https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-custom-blacklist
 
 
 

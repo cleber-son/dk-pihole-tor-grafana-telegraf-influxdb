@@ -2,9 +2,7 @@
 CONTAINER_PIHOLE_NAME=dk-pihole
 PIHOLE_HTTP_PORT=8080
 PIHOLE_WEB_PASSWORD=cleberson
-PIHOLE_DIR_ETC=./etc-pihole
-PIHOLE_DIR_DNS=./etc-dnsmasq
-PIHOLE_DIR_LOG=./etc-log
+PIHOLE_DNSSEC=false
 YOUR_ROUTER_IP=172.16.99.254
 YOUR_LOCAL_DOMAIN=valhalla
 TIME_ZONE=America/Sao_Paulo
@@ -23,6 +21,9 @@ grafana_pass=cleberson
 
 
 # Not change
+PIHOLE_DIR_ETC=./etc-pihole
+PIHOLE_DIR_DNS=./etc-dnsmasq
+PIHOLE_DIR_LOG=./etc-log
 adListSource="https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile"
 adListSource2="https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-whitelist"
 adListFile="adlist.uploaded"

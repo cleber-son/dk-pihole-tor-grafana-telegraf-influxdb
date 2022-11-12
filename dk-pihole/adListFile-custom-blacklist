@@ -1,17 +1,8 @@
 ######################################################################
-# Add here your whitelist
+# Add here your custom blacklist
 ######################################################################
 
 
-tibia.com
-unisa.br
-me.com
-icloud.com
-hookeng.com.br
-controle.vip
-cms-central.co
-nordvpn.com
-www.googleadservices.com
-
+baidu.com
 
 
