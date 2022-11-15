@@ -33,7 +33,10 @@ https://v.firebog.net/hosts/RPiList-Phishing.txt
 https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-custom-blacklist
 
 
-
+#Youtube ADS
+https://raw.githubusercontent.com/kboghdady/youTube_ads_4_pi-hole/master/black.list
+https://ewpratten.github.io/youtube_ad_blocklist/domains.txt
+https://raw.githubusercontent.com/KevinKoobs/youtube_ad_blocklist/main/index.txt
 
 
 
