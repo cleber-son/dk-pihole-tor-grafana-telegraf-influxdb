@@ -31,14 +31,22 @@ case "$1" in
     adlist)
         echo -e "[${GREEN}OK${RESTORE}] ${CONTAINER_PIHOLE_NAME} Updating adList..."
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
-        mkdir /etc/pihole
+#        mkdir /etc/pihole
         curl --url ${adListSource} --output ${adListFile}
         curl --url ${adListSource2} --output ${adListFile2}
+        rm dk-pihole/adListFile dk-pihole/adListFile-whitelist
+        cp ${adListFile} dk-pihole/adListFile
+        cp ${adListFile2} dk-pihole/adListFile
+
         sed -i 's/https\:\/\///g' ${adListFile2}
         sed -i 's/http\:\/\///g' ${adListFile2}
         sed -i 's/www\.//g' ${adListFile2}
         sed -i 's/\./\\\./g' ${adListFile2}
   
+        docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist;"
+        docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "DELETE FROM domainlist;"
+        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
+
         if [ -e "${adListFile}" ]; then
             rowid=$(docker exec ${CONTAINER_PIHOLE_NAME} sqlite3 /etc/pihole/gravity.db "SELECT MAX(id) FROM adlist;")
         if [[ -z "$rowid" ]]; then
@@ -69,6 +77,7 @@ case "$1" in
         done
 
         cp dk-pihole/adListUpdater.sh ${PIHOLE_DIR_ETC}/.
+        rm ${adListFile} ${adListFile2}
         docker exec -it ${CONTAINER_PIHOLE_NAME} sudo bash /etc/pihole/adListUpdater.sh
         docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
 
