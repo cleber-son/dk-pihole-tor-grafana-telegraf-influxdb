@@ -3,7 +3,6 @@
 # I usualy get my blocklist from https://firebog.net/
 ######################################################################
 
-
 # Suspicious Lists
 https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
 https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
@@ -20,12 +19,10 @@ https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
 https://v.firebog.net/hosts/Easylist.txt
 
 
-
 # Tracking & Telemetry Lists
 https://v.firebog.net/hosts/Easyprivacy.txt
 https://v.firebog.net/hosts/Prigent-Ads.txt
 https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
-
 
 
 # Malicious Lists
@@ -37,7 +34,6 @@ https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
 https://urlhaus.abuse.ch/downloads/hostfile/
 
 
-
 #Custom blacklist, file adListFile-custom-blacklist
 https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-custom-blacklist
 
@@ -46,6 +42,24 @@ https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-infl
 https://raw.githubusercontent.com/kboghdady/youTube_ads_4_pi-hole/master/black.list
 https://ewpratten.github.io/youtube_ad_blocklist/domains.txt
 https://raw.githubusercontent.com/KevinKoobs/youtube_ad_blocklist/main/index.txt
+
+
+#Others from https://blocklistproject.github.io/Lists/
+https://blocklistproject.github.io/Lists/alt-version/tiktok-nl.txt
+https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+https://blocklistproject.github.io/Lists/alt-version/abuse-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/ads-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/crypto-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/drugs-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/fraud-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/gambling-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/malware-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/phishing-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/piracy-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/ransomware-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/redirect-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/scam-nl.txt
+https://blocklistproject.github.io/Lists/alt-version/tracking-nl.txt
 
 
 
