@@ -27,6 +27,13 @@ services:
       - '${PIHOLE_DIR_ETC}:/etc/pihole'
       - '${PIHOLE_DIR_DNS}:/etc/dnsmasq.d'
       - '${PIHOLE_DIR_LOG}:/var/log/pihole'
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 1.0.0.1
+      - 8.8.4.4
+      - 208.67.222.222
+      - 208.67.220.220
       
   dk-tor:
     container_name: dk-tor
@@ -88,11 +95,17 @@ services:
       GF_DATABASE_PASSWORD: 'grafana'
     depends_on:
       - influxdb
-      - telegraf
     volumes:
       - ./dk-grafana/grafana/provisioning:/etc/grafana/provisioning
       - ./dk-grafana/grafana/dashboards:/etc/dashboards
     networks:
       - influx
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 1.0.0.1
+      - 8.8.4.4
+      - 208.67.222.222
+      - 208.67.220.220
 
 
