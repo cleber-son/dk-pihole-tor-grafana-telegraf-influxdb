@@ -27,12 +27,15 @@ case "$1" in
         cd ..
         echo -e "[${GREEN}OK${RESTORE}] Starting instalation..."
         docker-compose up -d
+
+   
     ;; 
     adlist)
-        echo -e "[${GREEN}OK${RESTORE}] ${CONTAINER_PIHOLE_NAME} Updating adList..."
-        docker exec -it ${CONTAINER_PIHOLE_NAME} pihole updateGravity
-#        mkdir /etc/pihole
-        curl --url ${adListSource} --output ${adListFile}
+    	echo -e "[${GREEN}OK${RESTORE}] Setting up cron for Pi-hole gravity update..."
+        docker exec -it dk-pihole /bin/bash -c "echo '0 2 * * * root pihole -g' > /etc/cron.d/pihole_update && chmod 0644 /etc/cron.d/pihole_update && crontab /etc/cron.d/pihole_update && service cron start"
+
+	
+ 	curl --url ${adListSource} --output ${adListFile}
         curl --url ${adListSource2} --output ${adListFile2}
         rm dk-pihole/adListFile dk-pihole/adListFile-whitelist
         cp ${adListFile} dk-pihole/adListFile
