@@ -25,7 +25,6 @@ https://v.firebog.net/hosts/Prigent-Crypto.txt
 
 
 https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
-https://v.firebog.net/hosts/Prigent-Adult.txt
 
 #Custom blacklist, file adListFile-custom-blacklist
 https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-custom-blacklist
