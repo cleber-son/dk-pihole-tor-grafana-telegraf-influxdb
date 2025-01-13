@@ -12,19 +12,24 @@ https://v.firebog.net/hosts/static/w3kbl.txt
 https://adaway.org/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt
 https://v.firebog.net/hosts/Admiral.txt
+https://v.firebog.net/hosts/Easylist.txt
+https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
 
 # Tracking & Telemetry Lists
 https://v.firebog.net/hosts/Easyprivacy.txt
 https://v.firebog.net/hosts/Prigent-Ads.txt
 https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
+https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
 
 # Malicious Lists
 https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
 https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
 https://v.firebog.net/hosts/Prigent-Crypto.txt
+https://v.firebog.net/hosts/RPiList-Malware.txt
+https://v.firebog.net/hosts/RPiList-Phishing.txt
+https://lists.cyberhost.uk/malware.txt
 
-
-https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
 
 #Custom blacklist, file adListFile-custom-blacklist
 https://raw.githubusercontent.com/cleber-son/dk-pihole-tor-grafana-telegraf-influxdb/main/dk-pihole/adListFile-custom-blacklist
